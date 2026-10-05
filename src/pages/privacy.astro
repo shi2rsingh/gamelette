@@ -1,10 +1,35 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { getBreadcrumbSchema } from '../util/seo';
+
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') || 'https://gamelette.com';
+const breadcrumbSchema = getBreadcrumbSchema(
+  [
+    { name: 'Home', url: '/' },
+    { name: 'Privacy Policy', url: '/privacy' },
+  ],
+  siteUrl
+);
+
+const privacyPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  '@id': `${siteUrl}/privacy/#webpage`,
+  url: `${siteUrl}/privacy/`,
+  name: 'Privacy Policy (Placeholder) — Gamelette',
+  description: 'Privacy policy information for Gamelette and its browser games collection.',
+  isPartOf: {
+    '@id': `${siteUrl}/#website`,
+  },
+};
+
+const jsonLd = [breadcrumbSchema, privacyPageSchema];
 ---
 
 <Layout
   title="Privacy Policy (Placeholder) — Gamelette"
   description="Privacy policy information for Gamelette and its browser games collection."
+  jsonLd={jsonLd}
 >
   <div class="py-16 md:py-24 bg-base-100">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">

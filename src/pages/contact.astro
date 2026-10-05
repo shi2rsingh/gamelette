@@ -1,10 +1,35 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { getBreadcrumbSchema } from '../util/seo';
+
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') || 'https://gamelette.com';
+const breadcrumbSchema = getBreadcrumbSchema(
+  [
+    { name: 'Home', url: '/' },
+    { name: 'Contact', url: '/contact' },
+  ],
+  siteUrl
+);
+
+const contactPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  '@id': `${siteUrl}/contact/#webpage`,
+  url: `${siteUrl}/contact/`,
+  name: 'Contact (Placeholder) — Gamelette',
+  description: 'Contact information and feedback channel for Gamelette.',
+  isPartOf: {
+    '@id': `${siteUrl}/#website`,
+  },
+};
+
+const jsonLd = [breadcrumbSchema, contactPageSchema];
 ---
 
 <Layout
   title="Contact (Placeholder) — Gamelette"
   description="Contact information and feedback channel for Gamelette."
+  jsonLd={jsonLd}
 >
   <div class="py-16 md:py-24 bg-base-100">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">

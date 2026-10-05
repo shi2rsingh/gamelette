@@ -7,16 +7,22 @@ interface Props {
   title?: string;
   description?: string;
   ogImage?: string;
+  keywords?: string;
+  jsonLd?: Record<string, any> | Array<Record<string, any>>;
 }
 
 const {
   title = 'Gamelette — Free Browser Games | Moody Man & Mancala',
   description = 'Play free, instant browser games at Gamelette. Featuring Moody Man (hangman word guessing) and Mancala (classic board game) with zero downloads or sign-ups.',
   ogImage = '/og-image.svg',
+  keywords = 'browser games, free web games, online games, moody man, mancala, word guessing, hangman, board games, bantumi, casual games, instant play, no download games',
+  jsonLd,
 } = Astro.props;
 
-const canonicalUrl = new URL(Astro.url.pathname, Astro.site || 'https://gamelette.com').toString();
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') || 'https://gamelette.com';
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl).toString();
 const currentPath = Astro.url.pathname;
+const absoluteOgImage = new URL(ogImage, siteUrl).toString();
 ---
 
 <!doctype html>
@@ -30,11 +36,16 @@ const currentPath = Astro.url.pathname;
     <title>{title}</title>
     <meta name="title" content={title} />
     <meta name="description" content={description} />
+    <meta name="keywords" content={keywords} />
+    <meta name="author" content="Gamelette" />
+    <meta name="publisher" content="Gamelette" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <link rel="canonical" href={canonicalUrl} />
 
     <!-- Favicons & Manifest -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="alternate icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#FAF7F2" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#0F172A" media="(prefers-color-scheme: dark)" />
@@ -45,14 +56,27 @@ const currentPath = Astro.url.pathname;
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={new URL(ogImage, Astro.site || 'https://gamelette.com').toString()} />
+    <meta property="og:image" content={absoluteOgImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:locale" content="en_US" />
 
-    <!-- Twitter -->
+    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content={canonicalUrl} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={new URL(ogImage, Astro.site || 'https://gamelette.com').toString()} />
+    <meta name="twitter:image" content={absoluteOgImage} />
+
+    <!-- JSON-LD Structured Data -->
+    {jsonLd && (
+      <script
+        type="application/ld+json"
+        is:inline
+        set:html={JSON.stringify(jsonLd)}
+      />
+    )}
   </head>
   <body class="bg-base-100 text-slate-800 antialiased selection:bg-amber-200 selection:text-amber-900">
     <!-- Accessible Skip Link -->
