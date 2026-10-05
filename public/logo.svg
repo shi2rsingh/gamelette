@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 60" width="240" height="60" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190 60" width="190" height="60" fill="none">
   <defs>
     <linearGradient id="logoPanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#334155" />
@@ -44,7 +44,4 @@
   <text x="68" y="38" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="28" font-weight="800" letter-spacing="-0.5" fill="currentColor">
     Game<tspan fill="#F59E0B">lette</tspan>
   </text>
-  <!-- Mini badge -->
-  <rect x="180" y="24" width="48" height="18" rx="9" fill="#FEF3C7" stroke="#FDE68A" stroke-width="1"/>
-  <text x="204" y="36" font-family="system-ui, -apple-system, BlinkMacSystemFont, sans-serif" font-size="10" font-weight="700" fill="#92400E" text-anchor="middle">ARCADE</text>
 </svg>
