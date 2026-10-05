@@ -1,0 +1,16 @@
+# Build & runtime outputs
+dist/
+.astro/
+
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Logs & temp
+*.log
+npm-debug.log*
+pnpm-debug.log*
+.DS_Store
+.env
+.env.*
+!.env.example

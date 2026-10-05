@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A" />
+      <stop offset="50%" stop-color="#1E293B" />
+      <stop offset="100%" stop-color="#0F172A" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#F59E0B" />
+      <stop offset="100%" stop-color="#EF4444" />
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="30%" r="60%">
+      <stop offset="0%" stop-color="#F59E0B" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#0F172A" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)" />
+  <rect width="1200" height="630" fill="url(#glow)" />
+
+  <!-- Grid subtle pattern -->
+  <g opacity="0.07" stroke="#FFFFFF" stroke-width="1">
+    <line x1="100" y1="0" x2="100" y2="630" />
+    <line x1="200" y1="0" x2="200" y2="630" />
+    <line x1="300" y1="0" x2="300" y2="630" />
+    <line x1="400" y1="0" x2="400" y2="630" />
+    <line x1="500" y1="0" x2="500" y2="630" />
+    <line x1="600" y1="0" x2="600" y2="630" />
+    <line x1="700" y1="0" x2="700" y2="630" />
+    <line x1="800" y1="0" x2="800" y2="630" />
+    <line x1="900" y1="0" x2="900" y2="630" />
+    <line x1="1000" y1="0" x2="1000" y2="630" />
+    <line x1="1100" y1="0" x2="1100" y2="630" />
+    <line x1="0" y1="100" x2="1200" y2="100" />
+    <line x1="0" y1="200" x2="1200" y2="200" />
+    <line x1="0" y1="300" x2="1200" y2="300" />
+    <line x1="0" y1="400" x2="1200" y2="400" />
+    <line x1="0" y1="500" x2="1200" y2="500" />
+  </g>
+
+  <!-- Logo Mark in Center/Left -->
+  <g transform="translate(100, 100) scale(1.6)">
+    <!-- Skillet Body -->
+    <circle cx="28" cy="36" r="24" fill="#334155" stroke="#F59E0B" stroke-width="2" />
+    <circle cx="28" cy="36" r="21.5" fill="#1E293B" />
+    <!-- Sunny-Side Up Egg White -->
+    <path d="M 23 20 C 31 19, 38 23, 40 28 C 42 33, 44 41, 38 46 C 32 51, 23 51, 18 47 C 13 43, 12 36, 15 28 C 18 21, 18 20, 23 20 Z" fill="#FFFBEB" />
+    <!-- Egg Yolk -->
+    <circle cx="27" cy="35" r="10.5" fill="#F59E0B" />
+    <ellipse cx="24.5" cy="31.5" rx="3.5" ry="2" transform="rotate(-30 24.5 31.5)" fill="#FFFFFF" opacity="0.7" />
+    <!-- D-pad buttons -->
+    <circle cx="27" cy="32.5" r="1.3" fill="#B45309" />
+    <circle cx="27" cy="38.5" r="1.3" fill="#B45309" />
+    <circle cx="24" cy="35.5" r="1.3" fill="#B45309" />
+    <circle cx="30" cy="35.5" r="1.3" fill="#B45309" />
+  </g>
+
+  <!-- Brand Title -->
+  <text x="210" y="165" font-family="system-ui, -apple-system, BlinkMacSystemFont, sans-serif" font-size="54" font-weight="900" fill="#FFFFFF" letter-spacing="-1">
+    Game<tspan fill="#F59E0B">lette</tspan>
+  </text>
+  <text x="212" y="205" font-family="system-ui, -apple-system, BlinkMacSystemFont, sans-serif" font-size="20" font-weight="600" fill="#94A3B8" letter-spacing="3">
+    FREE BROWSER GAMES
+  </text>
+
+  <!-- Headline -->
+  <text x="100" y="300" font-family="system-ui, -apple-system, BlinkMacSystemFont, sans-serif" font-size="52" font-weight="800" fill="#F8FAFC" letter-spacing="-1.5">
+    Fresh, Bite-Sized Web Games.
+  </text>
+  <text x="100" y="360" font-family="system-ui, -apple-system, BlinkMacSystemFont, sans-serif" font-size="32" font-weight="500" fill="#CBD5E1">
+    Zero downloads. Instant play in your browser.
+  </text>
+
+  <!-- Game Badges Cards -->
+  <!-- Card 1: Moody Man -->
+  <g transform="translate(100, 420)">
+    <rect width="470" height="130" rx="20" fill="#1E293B" stroke="#334155" stroke-width="2" />
+    <circle cx="65" cy="65" r="38" fill="#F59E0B" fill-opacity="0.2" />
+    <text x="65" y="73" font-size="34" text-anchor="middle">🔤</text>
+    <text x="125" y="55" font-family="system-ui, sans-serif" font-size="26" font-weight="700" fill="#FFFFFF">Moody Man</text>
+    <text x="125" y="85" font-family="system-ui, sans-serif" font-size="18" fill="#94A3B8">Hangman word guessing game with multiple modes</text>
+    <text x="125" y="112" font-family="system-ui, sans-serif" font-size="15" font-weight="600" fill="#F59E0B">moodyman.gamelette.com →</text>
+  </g>
+
+  <!-- Card 2: Mancala -->
+  <g transform="translate(620, 420)">
+    <rect width="470" height="130" rx="20" fill="#1E293B" stroke="#334155" stroke-width="2" />
+    <circle cx="65" cy="65" r="38" fill="#F59E0B" fill-opacity="0.2" />
+    <text x="65" y="73" font-size="34" text-anchor="middle">🪵</text>
+    <text x="125" y="55" font-family="system-ui, sans-serif" font-size="26" font-weight="700" fill="#FFFFFF">Mancala</text>
+    <text x="125" y="85" font-family="system-ui, sans-serif" font-size="18" fill="#94A3B8">Classic sow-and-capture strategy board game</text>
+    <text x="125" y="112" font-family="system-ui, sans-serif" font-size="15" font-weight="600" fill="#F59E0B">mancala.gamelette.com →</text>
+  </g>
+</svg>

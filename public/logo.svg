@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 60" width="240" height="60" fill="none">
+  <defs>
+    <linearGradient id="logoPanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#334155" />
+      <stop offset="100%" stop-color="#0F172A" />
+    </linearGradient>
+    <linearGradient id="logoEggGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#FEF3C7" />
+    </linearGradient>
+    <linearGradient id="logoYolkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FBBF24" />
+      <stop offset="60%" stop-color="#F59E0B" />
+      <stop offset="100%" stop-color="#D97706" />
+    </linearGradient>
+    <filter id="logoShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#78350F" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Mark Group -->
+  <g transform="translate(4, 2) scale(0.92)">
+    <!-- Handle -->
+    <path d="M42 16 L53 5 C54.5 3.5 57 3.5 58.5 5 C60 6.5 60 9 58.5 10.5 L47.5 21.5 Z" fill="#1E293B" stroke="#0F172A" stroke-width="1.5" stroke-linejoin="round" />
+    <!-- Pan Body -->
+    <circle cx="26" cy="33" r="22" fill="url(#logoPanGrad)" stroke="#475569" stroke-width="2" />
+    <circle cx="26" cy="33" r="19.5" fill="#1E293B" />
+
+    <!-- Sunny Side Up Egg -->
+    <path d="M 21 18 C 29 17, 36 21, 38 25 C 40 30, 41 37, 36 42 C 30 46, 21 46, 17 43 C 12 39, 11 33, 14 26 C 17 19, 17 18, 21 18 Z" fill="url(#logoEggGrad)" />
+
+    <!-- Yolk -->
+    <circle cx="25" cy="32" r="9.5" fill="url(#logoYolkGrad)" filter="url(#logoShadow)" />
+    <ellipse cx="22.5" cy="29" rx="3" ry="1.6" transform="rotate(-30 22.5 29)" fill="#FFFFFF" opacity="0.6" />
+
+    <!-- D-pad buttons -->
+    <circle cx="25" cy="29.5" r="1.1" fill="#B45309" />
+    <circle cx="25" cy="34.5" r="1.1" fill="#B45309" />
+    <circle cx="22.5" cy="32" r="1.1" fill="#B45309" />
+    <circle cx="27.5" cy="32" r="1.1" fill="#B45309" />
+  </g>
+
+  <!-- Wordmark Text -->
+  <text x="68" y="38" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="28" font-weight="800" letter-spacing="-0.5" fill="currentColor">
+    Game<tspan fill="#F59E0B">lette</tspan>
+  </text>
+  <!-- Mini badge -->
+  <rect x="180" y="24" width="48" height="18" rx="9" fill="#FEF3C7" stroke="#FDE68A" stroke-width="1"/>
+  <text x="204" y="36" font-family="system-ui, -apple-system, BlinkMacSystemFont, sans-serif" font-size="10" font-weight="700" fill="#92400E" text-anchor="middle">ARCADE</text>
+</svg>

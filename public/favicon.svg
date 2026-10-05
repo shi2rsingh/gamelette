@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="panGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#334155" />
+      <stop offset="100%" stop-color="#0F172A" />
+    </linearGradient>
+    <linearGradient id="eggGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#FEF3C7" />
+    </linearGradient>
+    <linearGradient id="yolkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FBBF24" />
+      <stop offset="60%" stop-color="#F59E0B" />
+      <stop offset="100%" stop-color="#D97706" />
+    </linearGradient>
+    <filter id="yolkShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#78350F" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Skillet Handle -->
+  <path d="M46 18 L58 6 C59.5 4.5 62 4.5 63.5 6 C65 7.5 65 10 63.5 11.5 L51.5 23.5 Z" fill="#1E293B" stroke="#0F172A" stroke-width="1.5" stroke-linejoin="round" />
+  <!-- Skillet Body -->
+  <circle cx="28" cy="36" r="24" fill="url(#panGrad)" stroke="#475569" stroke-width="2" />
+  <!-- Skillet Inner Rim -->
+  <circle cx="28" cy="36" r="21.5" fill="#1E293B" />
+
+  <!-- Sunny-Side Up Egg White -->
+  <path d="M 23 20 C 31 19, 38 23, 40 28 C 42 33, 44 41, 38 46 C 32 51, 23 51, 18 47 C 13 43, 12 36, 15 28 C 18 21, 18 20, 23 20 Z" fill="url(#eggGrad)" />
+
+  <!-- Egg Yolk (Game Button / Arcade Motif) -->
+  <circle cx="27" cy="35" r="10.5" fill="url(#yolkGrad)" filter="url(#yolkShadow)" />
+  <!-- Yolk Specular Highlight -->
+  <ellipse cx="24.5" cy="31.5" rx="3.5" ry="2" transform="rotate(-30 24.5 31.5)" fill="#FFFFFF" opacity="0.6" />
+
+  <!-- Mini Gamepad D-pad / Action Pips on Yolk -->
+  <!-- Center Pip / Cross Motif -->
+  <circle cx="27" cy="32.5" r="1.3" fill="#B45309" />
+  <circle cx="27" cy="38.5" r="1.3" fill="#B45309" />
+  <circle cx="24" cy="35.5" r="1.3" fill="#B45309" />
+  <circle cx="30" cy="35.5" r="1.3" fill="#B45309" />
+</svg>
