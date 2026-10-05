@@ -44,24 +44,18 @@ cd code/gamelette
 
 # Install dependencies
 pnpm install
-# or: npm install
 
 # Start development server
-npm run dev
-# or: pnpm dev
+pnpm dev
+
+# Run type check and create optimized production static build
+pnpm build
+
+# Preview production build locally
+pnpm preview
 ```
 
 The site will be available locally at `http://localhost:4321`.
-
-### Production Build & Verification
-
-```bash
-# Run type check and create optimized production static build
-npm run build
-
-# Preview production build locally
-npm run preview
-```
 
 ---
 
@@ -73,7 +67,7 @@ The repository includes a ready-to-deploy `netlify.toml` configuration:
 2. **Netlify Dashboard**:
    - Create a **New Site from Git** in Netlify.
    - Set **Base directory**: `code/gamelette` (or leave root if repo is pushed standalone).
-   - Set **Build command**: `npm run build` (or `pnpm run build`).
+   - Set **Build command**: `pnpm run build` (configured in `netlify.toml`).
    - Set **Publish directory**: `dist`.
 3. **Domain Setup**:
    - In Netlify Site Settings > **Domain management**, add custom domain: `gamelette.com`.
