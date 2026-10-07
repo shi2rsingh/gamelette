@@ -1,6 +1,16 @@
 ---
-import { games } from '../data/games';
+import { getLocalizedGames } from '../data/games';
+import { type Locale, DEFAULT_LOCALE } from '../i18n/locales';
+import { getTranslations } from '../i18n/utils';
 import GameCard from './GameCard.astro';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = DEFAULT_LOCALE } = Astro.props;
+const t = getTranslations(locale);
+const localizedGames = getLocalizedGames(locale);
 ---
 
 <section id="games" class="py-16 md:py-24 bg-base-200/50 scroll-mt-20">
@@ -8,20 +18,20 @@ import GameCard from './GameCard.astro';
     <!-- Section Header -->
     <div class="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-bold uppercase tracking-wider mb-3">
-        <span>🎮 Available Now</span>
+        <span>{t.gamesSection.badge}</span>
       </div>
       <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight">
-        Fresh From the Skillet
+        {t.gamesSection.title}
       </h2>
       <p class="mt-4 text-base sm:text-lg text-slate-600">
-        Choose a game below to jump straight in. Each runs on its dedicated subdomain with quick load times and zero barriers.
+        {t.gamesSection.subtitle}
       </p>
     </div>
 
     <!-- Games Grid (2 Cards) -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
-      {games.map((game, index) => (
-        <GameCard game={game} index={index} />
+      {localizedGames.map((game, index) => (
+        <GameCard game={game} index={index} locale={locale} />
       ))}
     </div>
 
@@ -32,20 +42,20 @@ import GameCard from './GameCard.astro';
           🍳
         </div>
         <h3 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-          More Games Simmering on the Stove
+          {t.gamesSection.teaserTitle}
         </h3>
         <p class="mt-3 text-sm sm:text-base text-slate-600 leading-relaxed">
-          We’re busy crafting new browser-native games to add to the menu. Expect lightweight word puzzles, spatial brain-teasers, and turn-based retro favorites cooked up with the same instant-play philosophy.
+          {t.gamesSection.teaserDesc}
         </p>
         <div class="mt-6 flex flex-wrap items-center justify-center gap-2">
           <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-white border border-slate-200 text-slate-600">
-            <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span> In prototyping
+            <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span> {t.gamesSection.teaserPrototyping}
           </span>
           <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-white border border-slate-200 text-slate-600">
-            <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span> Always web-first
+            <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span> {t.gamesSection.teaserWebFirst}
           </span>
           <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-white border border-slate-200 text-slate-600">
-            <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span> Zero download bloat
+            <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span> {t.gamesSection.teaserNoBloat}
           </span>
         </div>
       </div>

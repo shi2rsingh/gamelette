@@ -2,6 +2,8 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { type Locale, DEFAULT_LOCALE, LOCALES_INFO, SUPPORTED_LOCALES } from '../i18n/locales';
+import { getTranslations, getLocaleFromPath, getAlternateLinks, getLocalizedPath } from '../i18n/utils';
 
 interface Props {
   title?: string;
@@ -9,24 +11,43 @@ interface Props {
   ogImage?: string;
   keywords?: string;
   jsonLd?: Record<string, any> | Array<Record<string, any>>;
+  locale?: Locale;
 }
 
+const currentPath = Astro.url.pathname;
+const detectedLocale = (Astro.currentLocale as Locale) || getLocaleFromPath(currentPath) || DEFAULT_LOCALE;
 const {
-  title = 'Gamelette — Free Browser Games | Moody Man & Mancala',
-  description = 'Play free, instant browser games at Gamelette. Featuring Moody Man (hangman word guessing) and Mancala (classic board game) with zero downloads or sign-ups.',
+  locale = detectedLocale,
   ogImage = '/og-image.png',
-  keywords = 'browser games, free web games, online games, moody man, mancala, word guessing, hangman, board games, bantumi, casual games, instant play, no download games',
   jsonLd,
 } = Astro.props;
 
+const t = getTranslations(locale);
+const localeInfo = LOCALES_INFO[locale] || LOCALES_INFO[DEFAULT_LOCALE];
+
+const title = Astro.props.title || t.meta.homeTitle;
+const description = Astro.props.description || t.meta.homeDescription;
+const keywords = Astro.props.keywords || t.meta.keywords;
+
 const siteUrl = Astro.site?.toString().replace(/\/$/, '') || 'https://gamelette.com';
-const canonicalUrl = new URL(Astro.url.pathname, siteUrl).toString();
-const currentPath = Astro.url.pathname;
+
+// Ensure canonical URL has trailing slash matching directory output
+const normalizedPath = currentPath.endsWith('/') ? currentPath : `${currentPath}/`;
+const canonicalUrl = new URL(normalizedPath, siteUrl).toString();
 const absoluteOgImage = new URL(ogImage, siteUrl).toString();
+
+const alternateLinks = getAlternateLinks(currentPath, siteUrl);
+const xDefaultUrl = `${siteUrl}${getLocalizedPath(currentPath, DEFAULT_LOCALE)}`;
+
+// Alternate locales for Open Graph
+const otherOgLocales = SUPPORTED_LOCALES
+  .filter((loc) => loc !== locale)
+  .map((loc) => LOCALES_INFO[loc].ogLocale);
+const isProd = import.meta.env.PROD;
 ---
 
 <!doctype html>
-<html lang="en" data-theme="cupcake" class="scroll-smooth">
+<html lang={locale} dir={localeInfo.dir} data-theme="cupcake" class="scroll-smooth">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -41,6 +62,12 @@ const absoluteOgImage = new URL(ogImage, siteUrl).toString();
     <meta name="publisher" content="Gamelette" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Hreflang Alternates for i18n SEO -->
+    {alternateLinks.map((alt) => (
+      <link rel="alternate" hreflang={alt.locale} href={alt.href} />
+    ))}
+    <link rel="alternate" hreflang="x-default" href={xDefaultUrl} />
 
     <!-- Favicons & Manifest -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -60,7 +87,10 @@ const absoluteOgImage = new URL(ogImage, siteUrl).toString();
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:type" content={absoluteOgImage.endsWith('.png') ? 'image/png' : absoluteOgImage.endsWith('.jpg') ? 'image/jpeg' : 'image/svg+xml'} />
-    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale" content={localeInfo.ogLocale} />
+    {otherOgLocales.map((other) => (
+      <meta property="og:locale:alternate" content={other} />
+    ))}
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -77,15 +107,25 @@ const absoluteOgImage = new URL(ogImage, siteUrl).toString();
         set:html={JSON.stringify(jsonLd)}
       />
     )}
+
+    <!-- Umami Analytics (Production only) -->
+    {isProd && (
+      <script
+        is:inline
+        defer
+        src="https://khoji.shishirsingh.com/script.js"
+        data-website-id="db7ed3e2-a809-4014-92ae-50b474fa385f"
+      />
+    )}
   </head>
   <body class="bg-base-100 text-slate-800 antialiased selection:bg-amber-200 selection:text-amber-900">
     <!-- Accessible Skip Link -->
     <a href="#main-content" class="skip-link">
-      Skip to main content
+      {t.common.skipToContent}
     </a>
 
     <!-- Header -->
-    <Header currentPath={currentPath} />
+    <Header currentPath={currentPath} locale={locale} />
 
     <!-- Main Content Landmark -->
     <main id="main-content" class="flex-1 focus:outline-none">
@@ -93,6 +133,6 @@ const absoluteOgImage = new URL(ogImage, siteUrl).toString();
     </main>
 
     <!-- Footer -->
-    <Footer currentPath={currentPath} />
+    <Footer currentPath={currentPath} locale={locale} />
   </body>
 </html>

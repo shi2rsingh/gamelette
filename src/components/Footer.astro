@@ -1,10 +1,21 @@
 ---
+import { type Locale, DEFAULT_LOCALE } from '../i18n/locales';
+import { getTranslations, getLocalizedPath, stripLocaleFromPath } from '../i18n/utils';
+
 interface Props {
   currentPath?: string;
+  locale?: Locale;
 }
 
-const { currentPath = '/' } = Astro.props;
-const isHome = currentPath === '/';
+const { currentPath = '/', locale = DEFAULT_LOCALE } = Astro.props;
+const t = getTranslations(locale);
+const isHome = stripLocaleFromPath(currentPath) === '/';
+const homeUrl = getLocalizedPath('/', locale);
+const privacyUrl = getLocalizedPath('/privacy', locale);
+const contactUrl = getLocalizedPath('/contact', locale);
+
+const gamesLink = isHome ? '#games' : `${homeUrl}#games`;
+const aboutLink = isHome ? '#about' : `${homeUrl}#about`;
 ---
 
 <footer class="mt-auto bg-slate-900 text-slate-300 border-t border-slate-800">
@@ -13,9 +24,9 @@ const isHome = currentPath === '/';
       <!-- Col 1: Brand Info -->
       <div class="md:col-span-2 space-y-4">
         <a
-          href="/"
+          href={homeUrl}
           class="inline-flex items-center gap-3 rounded-lg focus-visible:ring-4 focus-visible:ring-amber-400"
-          aria-label="Gamelette Home"
+          aria-label={t.common.brandHomeAria}
         >
           <div class="w-9 h-9 flex items-center justify-center rounded-xl bg-slate-800 border border-slate-700">
             <svg class="w-6 h-6" viewBox="0 0 64 64" fill="none" aria-hidden="true">
@@ -32,18 +43,18 @@ const isHome = currentPath === '/';
         </a>
 
         <p class="text-sm text-slate-400 max-w-sm leading-relaxed">
-          Gamelette is a pocket collection of free browser games cooked up for quick breaks. Whipped up with care, zero installs required.
+          {t.footer.aboutText}
         </p>
 
         <p class="text-xs text-slate-500">
-          Independent deployment: game subdomains operate independently from this root domain.
+          {t.common.independentDeploymentNote}
         </p>
       </div>
 
       <!-- Col 2: Games Navigation -->
       <div>
         <h3 class="text-xs font-bold uppercase tracking-wider text-slate-200 mb-4">
-          Games
+          {t.footer.gamesHeading}
         </h3>
         <ul class="space-y-2.5 text-sm">
           <li>
@@ -53,7 +64,7 @@ const isHome = currentPath === '/';
               rel="noopener noreferrer"
               class="hover:text-amber-400 transition-colors inline-flex items-center gap-1.5"
             >
-              <span>Moody Man</span>
+              <span>{t.games.moodyman.title}</span>
               <span class="text-xs text-slate-500">↗</span>
             </a>
           </li>
@@ -64,16 +75,16 @@ const isHome = currentPath === '/';
               rel="noopener noreferrer"
               class="hover:text-amber-400 transition-colors inline-flex items-center gap-1.5"
             >
-              <span>Mancala</span>
+              <span>{t.games.mancala.title}</span>
               <span class="text-xs text-slate-500">↗</span>
             </a>
           </li>
           <li>
             <a
-              href={isHome ? '#games' : '/#games'}
+              href={gamesLink}
               class="hover:text-amber-400 transition-colors text-slate-400"
             >
-              All Games
+              {t.footer.allGames}
             </a>
           </li>
         </ul>
@@ -82,31 +93,31 @@ const isHome = currentPath === '/';
       <!-- Col 3: Legal & Contact -->
       <div>
         <h3 class="text-xs font-bold uppercase tracking-wider text-slate-200 mb-4">
-          Site & Legal
+          {t.footer.siteHeading}
         </h3>
         <ul class="space-y-2.5 text-sm">
           <li>
             <a
-              href={isHome ? '#about' : '/#about'}
+              href={aboutLink}
               class="hover:text-amber-400 transition-colors"
             >
-              About Gamelette
+              {t.footer.aboutLink}
             </a>
           </li>
           <li>
             <a
-              href="/privacy"
+              href={privacyUrl}
               class="hover:text-amber-400 transition-colors"
             >
-              Privacy Policy
+              {t.footer.privacyLink}
             </a>
           </li>
           <li>
             <a
-              href="/contact"
+              href={contactUrl}
               class="hover:text-amber-400 transition-colors inline-flex items-center gap-1.5"
             >
-              <span>Contact Us</span>
+              <span>{t.footer.contactLink}</span>
             </a>
           </li>
         </ul>
@@ -115,11 +126,11 @@ const isHome = currentPath === '/';
 
     <!-- Bottom Copyright -->
     <div class="mt-12 pt-8 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-      <p>© {new Date().getFullYear()} Gamelette. All rights reserved.</p>
+      <p>© {new Date().getFullYear()} {t.common.allRightsReserved}</p>
       <p class="flex items-center gap-1">
-        <span>Cooked with</span>
+        <span>{t.common.cookedWithLove}</span>
         <span class="text-amber-400" aria-label="love">🍳</span>
-        <span>for web gamers everywhere</span>
+        <span>{t.common.forWebGamers}</span>
       </p>
     </div>
   </div>

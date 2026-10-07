@@ -1,20 +1,31 @@
 ---
+import { type Locale, DEFAULT_LOCALE } from '../i18n/locales';
+import { getTranslations, getLocalizedPath, stripLocaleFromPath } from '../i18n/utils';
+import LanguageSelector from './LanguageSelector.astro';
+
 interface Props {
   currentPath?: string;
+  locale?: Locale;
 }
 
-const { currentPath = '/' } = Astro.props;
-const isHome = currentPath === '/';
+const { currentPath = '/', locale = DEFAULT_LOCALE } = Astro.props;
+const t = getTranslations(locale);
+const isHome = stripLocaleFromPath(currentPath) === '/';
+const homeUrl = getLocalizedPath('/', locale);
+
+const gamesLink = isHome ? '#games' : `${homeUrl}#games`;
+const whyLink = isHome ? '#why' : `${homeUrl}#why`;
+const aboutLink = isHome ? '#about' : `${homeUrl}#about`;
 ---
 
 <header class="sticky top-0 z-40 bg-base-100/90 backdrop-blur-md border-b border-base-200/80 transition-colors">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-18">
+    <div class="flex items-center justify-between h-18 gap-2">
       <!-- Brand Logo -->
       <a
-        href="/"
-        class="group flex items-center gap-3 rounded-xl p-1.5 -ml-1.5 focus-visible:ring-4 focus-visible:ring-amber-400 focus-visible:outline-none transition-transform hover:scale-105"
-        aria-label="Gamelette Home - Free browser games"
+        href={homeUrl}
+        class="group flex items-center gap-3 rounded-xl p-1.5 -ml-1.5 focus-visible:ring-4 focus-visible:ring-amber-400 focus-visible:outline-none transition-transform hover:scale-105 shrink-0"
+        aria-label={t.common.brandAria}
       >
         <div class="relative w-10 h-10 flex items-center justify-center rounded-xl bg-slate-900 shadow-md group-hover:shadow-amber-500/20 transition-all">
           <!-- Skillet + Yolk Icon -->
@@ -36,7 +47,7 @@ const isHome = currentPath === '/';
             Game<span class="text-amber-500">lette</span>
           </span>
           <span class="text-[10px] uppercase font-bold tracking-wider text-slate-500 mt-0.5">
-            Pocket Browser Games
+            {t.common.brandTagline}
           </span>
         </div>
       </a>
@@ -44,35 +55,37 @@ const isHome = currentPath === '/';
       <!-- Desktop Navigation -->
       <nav class="hidden md:flex items-center gap-1 sm:gap-2" aria-label="Main Navigation">
         <a
-          href={isHome ? '#games' : '/#games'}
-          class="px-3.5 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:text-slate-900 hover:bg-base-200 transition-colors"
+          href={gamesLink}
+          class="px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:text-slate-900 hover:bg-base-200 transition-colors"
         >
-          The Games
+          {t.nav.games}
         </a>
         <a
-          href={isHome ? '#why' : '/#why'}
-          class="px-3.5 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:text-slate-900 hover:bg-base-200 transition-colors"
+          href={whyLink}
+          class="px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:text-slate-900 hover:bg-base-200 transition-colors"
         >
-          Why Gamelette
+          {t.nav.why}
         </a>
         <a
-          href={isHome ? '#about' : '/#about'}
-          class="px-3.5 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:text-slate-900 hover:bg-base-200 transition-colors"
+          href={aboutLink}
+          class="px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:text-slate-900 hover:bg-base-200 transition-colors"
         >
-          About
+          {t.nav.about}
         </a>
       </nav>
 
-      <!-- Primary Action CTA -->
-      <div class="flex items-center gap-3">
+      <!-- Actions: Language Selector + Play CTA -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <LanguageSelector locale={locale} currentPath={currentPath} />
+
         <a
-          href={isHome ? '#games' : '/#games'}
-          class="inline-flex items-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 rounded-xl text-sm font-bold bg-amber-500 hover:bg-amber-600 text-slate-950 shadow-sm hover:shadow transition-all active:scale-98"
+          href={gamesLink}
+          class="inline-flex items-center gap-1.5 sm:gap-2 px-3.5 py-2 sm:px-5 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-amber-500 hover:bg-amber-600 text-slate-950 shadow-sm hover:shadow transition-all active:scale-98 shrink-0"
         >
-          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M8 5v14l11-7z" />
           </svg>
-          <span>Play Now</span>
+          <span>{t.nav.playNow}</span>
         </a>
       </div>
     </div>

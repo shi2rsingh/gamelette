@@ -1,0 +1,15 @@
+---
+import { OTHER_LOCALES, type Locale } from '../../i18n/locales';
+import PrivacyPage from '../../components/pages/PrivacyPage.astro';
+
+export function getStaticPaths() {
+  return OTHER_LOCALES.map((locale) => ({
+    params: { locale },
+  }));
+}
+
+const { locale } = Astro.params;
+---
+
+<PrivacyPage locale={locale as Locale} />
+

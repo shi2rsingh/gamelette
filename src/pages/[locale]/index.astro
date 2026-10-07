@@ -1,0 +1,15 @@
+---
+import { OTHER_LOCALES, type Locale } from '../../i18n/locales';
+import HomePage from '../../components/pages/HomePage.astro';
+
+export function getStaticPaths() {
+  return OTHER_LOCALES.map((locale) => ({
+    params: { locale },
+  }));
+}
+
+const { locale } = Astro.params;
+---
+
+<HomePage locale={locale as Locale} />
+

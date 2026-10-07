@@ -1,4 +1,13 @@
 ---
+import { type Locale, DEFAULT_LOCALE } from '../i18n/locales';
+import { getTranslations } from '../i18n/utils';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = DEFAULT_LOCALE } = Astro.props;
+const t = getTranslations(locale);
 ---
 
 <section class="relative overflow-hidden pt-12 pb-16 md:pt-20 md:pb-24 border-b border-base-200/60 bg-gradient-to-b from-amber-500/5 via-base-100 to-base-100">
@@ -12,22 +21,22 @@
     <!-- Playful Badge -->
     <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100 border border-amber-300/80 text-amber-900 text-xs sm:text-sm font-bold shadow-xs mb-6">
       <span class="inline-block animate-pulse">🍳</span>
-      <span>A fresh spin on web games</span>
+      <span>{t.hero.badge}</span>
       <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
-      <span class="text-amber-800 font-medium">Free & Instant</span>
+      <span class="text-amber-800 font-medium">{t.hero.badgeHighlight}</span>
     </div>
 
     <!-- Main Headline -->
     <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-slate-900 tracking-tight max-w-4xl mx-auto leading-[1.08]">
-      Bite-Sized Browser Games.
+      {t.hero.titleLine1}
       <span class="block bg-gradient-to-r from-amber-600 via-amber-500 to-orange-500 bg-clip-text text-transparent">
-        Whipped Up for Quick Fun.
+        {t.hero.titleLine2}
       </span>
     </h1>
 
     <!-- Subtitle -->
     <p class="mt-6 text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto font-normal leading-relaxed">
-      Welcome to <strong class="text-slate-900 font-semibold">Gamelette</strong> — a curated home for lightweight, hassle-free web games. No heavy launchers, no paywalls, and no setup. Just click and play right in your browser.
+      {t.hero.description}
     </p>
 
     <!-- CTAs -->
@@ -39,14 +48,14 @@
         <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <path d="M8 5v14l11-7z" />
         </svg>
-        <span>Explore the Games</span>
+        <span>{t.hero.ctaExplore}</span>
       </a>
 
       <a
         href="#about"
         class="inline-flex items-center justify-center px-6 py-3.5 rounded-xl font-semibold text-base text-slate-700 hover:text-slate-950 bg-slate-100 hover:bg-slate-200 border border-slate-200/80 transition-colors"
       >
-        Why "Gamelette"?
+        {t.hero.ctaWhy}
       </a>
     </div>
 
@@ -57,8 +66,8 @@
           🆓
         </div>
         <div>
-          <h2 class="text-xs sm:text-sm font-bold text-slate-900">100% Free</h2>
-          <p class="text-[11px] sm:text-xs text-slate-500 mt-0.5">No hidden paywalls</p>
+          <h2 class="text-xs sm:text-sm font-bold text-slate-900">{t.hero.propFreeTitle}</h2>
+          <p class="text-[11px] sm:text-xs text-slate-500 mt-0.5">{t.hero.propFreeDesc}</p>
         </div>
       </div>
 
@@ -67,8 +76,8 @@
           ⚡
         </div>
         <div>
-          <h2 class="text-xs sm:text-sm font-bold text-slate-900">Zero Installs</h2>
-          <p class="text-[11px] sm:text-xs text-slate-500 mt-0.5">Launches in tabs</p>
+          <h2 class="text-xs sm:text-sm font-bold text-slate-900">{t.hero.propInstallTitle}</h2>
+          <p class="text-[11px] sm:text-xs text-slate-500 mt-0.5">{t.hero.propInstallDesc}</p>
         </div>
       </div>
 
@@ -77,8 +86,8 @@
           📱
         </div>
         <div>
-          <h2 class="text-xs sm:text-sm font-bold text-slate-900">Cross-Device</h2>
-          <p class="text-[11px] sm:text-xs text-slate-500 mt-0.5">Mobile, tablet & PC</p>
+          <h2 class="text-xs sm:text-sm font-bold text-slate-900">{t.hero.propDeviceTitle}</h2>
+          <p class="text-[11px] sm:text-xs text-slate-500 mt-0.5">{t.hero.propDeviceDesc}</p>
         </div>
       </div>
 
@@ -87,8 +96,8 @@
           ☕
         </div>
         <div>
-          <h2 class="text-xs sm:text-sm font-bold text-slate-900">Quick Breaks</h2>
-          <p class="text-[11px] sm:text-xs text-slate-500 mt-0.5">Pick up & play</p>
+          <h2 class="text-xs sm:text-sm font-bold text-slate-900">{t.hero.propBreakTitle}</h2>
+          <p class="text-[11px] sm:text-xs text-slate-500 mt-0.5">{t.hero.propBreakDesc}</p>
         </div>
       </div>
     </div>

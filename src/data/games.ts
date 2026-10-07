@@ -1,5 +1,7 @@
+import { getTranslations } from '../i18n/utils';
+
 export interface Game {
-  id: string;
+  id: 'moodyman' | 'mancala';
   title: string;
   tagline: string;
   description: string;
@@ -11,48 +13,48 @@ export interface Game {
   previewAlt: string;
   tags: string[];
   features: string[];
-
 }
 
-export const games: Game[] = [
+interface GameBaseInfo {
+  id: 'moodyman' | 'mancala';
+  url: string;
+  subdomain: string;
+  icon: string;
+  previewImage: string;
+}
+
+const GAMES_BASE: GameBaseInfo[] = [
   {
     id: 'moodyman',
-    title: 'Moody Man',
-    tagline: 'Word Guessing with Multiple Categories & Modes',
-    description:
-      'A fresh take on the classic hangman word-guessing game. Test your vocabulary across varied categories, beat the countdown, and keep the moods in check.',
     url: 'https://moodyman.gamelette.com',
     subdomain: 'moodyman.gamelette.com',
-    category: 'Word Puzzle',
     icon: '/images/moodyman/icon-192.png',
     previewImage: '/images/moodyman/banner.png',
-    previewAlt: 'Moody Man game illustration and moody characters',
-    tags: ['Word Puzzle', 'Multiple Modes', 'Solo & Casual', 'Quick Rounds'],
-    features: [
-      'Multiple themed categories and varying word difficulties',
-      'On-screen interactive keyboard plus physical keyboard support',
-      'Expressive character mood animations and sound effects',
-      'Runs instantly on mobile phones, tablets, and desktop browsers',
-    ],
   },
   {
     id: 'mancala',
-    title: 'Mancala',
-    tagline: 'The Classic Sow-and-Capture Board Game',
-    description:
-      'The ancient strategy board game reimagined for the web. Sow seeds through wooden pits, capture your opponent’s pieces, and master the timeless tactical rhythm.',
     url: 'https://mancala.gamelette.com',
     subdomain: 'mancala.gamelette.com',
-    category: 'Strategy Board Game',
     icon: '/images/mancala/icon-192.png',
     previewImage: '/images/mancala/screenshot-desktop.png',
-    previewAlt: 'Mancala game wooden board and stone pits interface',
-    tags: ['Classic Strategy', 'Turn-Based', 'AI or 2-Player', 'Ancient Board'],
-    features: [
-      'Authentic Bantumi / Mancala rules with sow-and-capture mechanics',
-      'Smart AI opponent for solo play or pass-and-play for two',
-      'Clean wooden board aesthetics with smooth stone movements',
-      'Instant loading via web standards with zero install needed',
-    ],
   },
 ];
+
+export function getLocalizedGames(locale?: string): Game[] {
+  const t = getTranslations(locale);
+  return GAMES_BASE.map((base) => {
+    const localized = t.games[base.id];
+    return {
+      ...base,
+      title: localized.title,
+      tagline: localized.tagline,
+      description: localized.description,
+      category: localized.category,
+      previewAlt: localized.previewAlt,
+      tags: localized.tags,
+      features: localized.features,
+    };
+  });
+}
+
+export const games: Game[] = getLocalizedGames('en-US');

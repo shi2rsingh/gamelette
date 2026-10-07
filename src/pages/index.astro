@@ -1,29 +1,5 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Hero from '../components/Hero.astro';
-import GamesGrid from '../components/GamesGrid.astro';
-import WhySection from '../components/WhySection.astro';
-import AboutSection from '../components/AboutSection.astro';
-import { getHomePageSchema } from '../util/seo';
-
-const siteUrl = Astro.site?.toString().replace(/\/$/, '') || 'https://gamelette.com';
-const homeSchema = getHomePageSchema(siteUrl);
+import HomePage from '../components/pages/HomePage.astro';
 ---
 
-<Layout
-  title="Gamelette — Free Browser Games | Moody Man & Mancala"
-  description="Play free, easy-to-play browser games at Gamelette. Home of Moody Man (hangman word guessing) and Mancala (classic sow-and-capture board game). Zero downloads, instant fun."
-  jsonLd={homeSchema}
->
-  <!-- Hero Section with Brand Introduction -->
-  <Hero />
-
-  <!-- Featured Games Grid: Moody Man & Mancala -->
-  <GamesGrid />
-
-  <!-- Why Section: The Value Proposition & Web Purity -->
-  <WhySection />
-
-  <!-- About Section: The Name (Game + Omelette) & Subdomain Architecture -->
-  <AboutSection />
-</Layout>
+<HomePage locale="en-US" />

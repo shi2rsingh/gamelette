@@ -1,0 +1,75 @@
+---
+import { SUPPORTED_LOCALES, LOCALES_INFO, type Locale } from '../i18n/locales';
+import { getTranslations, getLocalizedPath } from '../i18n/utils';
+
+interface Props {
+  locale: Locale;
+  currentPath?: string;
+}
+
+const { locale, currentPath = '/' } = Astro.props;
+const t = getTranslations(locale);
+const currentLocaleInfo = LOCALES_INFO[locale] || LOCALES_INFO['en-US'];
+---
+
+<details class="dropdown dropdown-end relative" aria-label={t.common.languageSelectorLabel}>
+  <summary
+    class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-200/90 hover:border-amber-400 bg-base-100 hover:bg-slate-50 text-slate-700 text-xs font-bold transition-all cursor-pointer list-none select-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:outline-none"
+    role="button"
+    aria-haspopup="menu"
+  >
+    <svg class="w-3.5 h-3.5 text-slate-500 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="10"></circle>
+      <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+      <path d="M2 12h20"></path>
+    </svg>
+    <span class="tracking-tight">{currentLocaleInfo.label}</span>
+    <svg class="w-3 h-3 text-slate-400 ml-0.5 shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+      <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+    </svg>
+  </summary>
+
+  <ul
+    class="dropdown-content menu p-1.5 shadow-xl bg-base-100 border border-slate-200 rounded-2xl w-44 z-50 text-xs mt-1.5 space-y-0.5 right-0"
+    role="menu"
+  >
+    {
+      SUPPORTED_LOCALES.map((loc) => {
+        const info = LOCALES_INFO[loc];
+        const targetUrl = getLocalizedPath(currentPath, loc);
+        const isActive = loc === locale;
+        return (
+          <li role="none">
+            <a
+              href={targetUrl}
+              class={`flex items-center justify-between py-2 px-3 rounded-xl transition-colors ${
+                isActive
+                  ? 'bg-amber-100 font-bold text-amber-950'
+                  : 'hover:bg-slate-100 text-slate-700 font-medium'
+              }`}
+              hreflang={loc}
+              role="menuitem"
+              aria-current={isActive ? 'page' : undefined}
+            >
+              <span>{info.label}</span>
+              {isActive && <span class="text-amber-600 text-xs font-black">✓</span>}
+            </a>
+          </li>
+        );
+      })
+    }
+  </ul>
+</details>
+
+<script>
+  // Close dropdown when clicking outside
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement | null;
+    document.querySelectorAll('details.dropdown[open]').forEach((dropdown) => {
+      if (!dropdown.contains(target)) {
+        dropdown.removeAttribute('open');
+      }
+    });
+  });
+</script>
+

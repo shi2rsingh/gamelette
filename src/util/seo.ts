@@ -1,4 +1,15 @@
-export function getHomePageSchema(siteUrl = 'https://gamelette.com') {
+import { getTranslations, getLocalizedPath } from '../i18n/utils';
+import { getLocalizedGames } from '../data/games';
+import type { Locale } from '../i18n/locales';
+
+export function getHomePageSchema(siteUrl = 'https://gamelette.com', locale: Locale = 'en-US') {
+  const t = getTranslations(locale);
+  const localizedGames = getLocalizedGames(locale);
+  const pagePath = getLocalizedPath('/', locale);
+  const pageUrl = `${siteUrl}${pagePath}`;
+  const pageId = `${pageUrl}#webpage`;
+  const listId = `${pageUrl}#gamelist`;
+
   return {
     '@context': 'https://schema.org',
     '@graph': [
@@ -7,9 +18,8 @@ export function getHomePageSchema(siteUrl = 'https://gamelette.com') {
         '@id': `${siteUrl}/#website`,
         url: `${siteUrl}/`,
         name: 'Gamelette',
-        description:
-          'Free, lightweight browser games with zero downloads or sign-ups. Home of Moody Man and Mancala.',
-        inLanguage: 'en-US',
+        description: t.meta.homeDescription,
+        inLanguage: locale,
         publisher: {
           '@id': `${siteUrl}/#organization`,
         },
@@ -27,70 +37,43 @@ export function getHomePageSchema(siteUrl = 'https://gamelette.com') {
       },
       {
         '@type': 'CollectionPage',
-        '@id': `${siteUrl}/#webpage`,
-        url: `${siteUrl}/`,
-        name: 'Gamelette — Free Browser Games | Moody Man & Mancala',
+        '@id': pageId,
+        url: pageUrl,
+        name: t.meta.homeTitle,
         isPartOf: {
           '@id': `${siteUrl}/#website`,
         },
-        description:
-          'Play free, easy-to-play browser games at Gamelette. Featuring Moody Man (hangman word guessing) and Mancala (classic sow-and-capture board game).',
-        inLanguage: 'en-US',
+        description: t.meta.homeDescription,
+        inLanguage: locale,
       },
       {
         '@type': 'ItemList',
-        '@id': `${siteUrl}/#gamelist`,
-        name: 'Featured Browser Games',
-        description: 'Instant, free browser games playable directly on Gamelette subdomains.',
-        numberOfItems: 2,
-        itemListElement: [
-          {
-            '@type': 'ListItem',
-            position: 1,
-            item: {
-              '@type': ['VideoGame', 'WebApplication'],
-              name: 'Moody Man',
-              url: 'https://moodyman.gamelette.com',
-              image: `${siteUrl}/images/moodyman/icon-512.png`,
-              description:
-                'A hangman-style word guessing game with multiple categories and difficulty modes. Test your vocabulary and beat the timer.',
-              applicationCategory: 'GameApplication',
-              gamePlatform: 'Web Browser',
-              operatingSystem: 'Any modern browser (Chrome, Safari, Firefox, Edge)',
-              genre: ['Word Puzzle', 'Hangman', 'Casual Game'],
-              inLanguage: 'en',
-              offers: {
-                '@type': 'Offer',
-                price: '0',
-                priceCurrency: 'USD',
-                availability: 'https://schema.org/InStock',
-              },
+        '@id': listId,
+        name: t.gamesSection.title,
+        description: t.gamesSection.subtitle,
+        numberOfItems: localizedGames.length,
+        itemListElement: localizedGames.map((game, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          item: {
+            '@type': ['VideoGame', 'WebApplication'],
+            name: game.title,
+            url: game.url,
+            image: `${siteUrl}${game.icon.replace('192', '512')}`,
+            description: game.description,
+            applicationCategory: 'GameApplication',
+            gamePlatform: 'Web Browser',
+            operatingSystem: 'Any modern browser (Chrome, Safari, Firefox, Edge)',
+            genre: game.tags,
+            inLanguage: locale,
+            offers: {
+              '@type': 'Offer',
+              price: '0',
+              priceCurrency: 'USD',
+              availability: 'https://schema.org/InStock',
             },
           },
-          {
-            '@type': 'ListItem',
-            position: 2,
-            item: {
-              '@type': ['VideoGame', 'WebApplication'],
-              name: 'Mancala',
-              url: 'https://mancala.gamelette.com',
-              image: `${siteUrl}/images/mancala/icon-512.png`,
-              description:
-                'The classic sow-and-capture strategy board game. Strategically distribute seeds and outsmart the AI or play with a friend.',
-              applicationCategory: 'GameApplication',
-              gamePlatform: 'Web Browser',
-              operatingSystem: 'Any modern browser (Chrome, Safari, Firefox, Edge)',
-              genre: ['Board Game', 'Strategy Game', 'Turn-Based Strategy'],
-              inLanguage: 'en',
-              offers: {
-                '@type': 'Offer',
-                price: '0',
-                priceCurrency: 'USD',
-                availability: 'https://schema.org/InStock',
-              },
-            },
-          },
-        ],
+        })),
       },
     ],
   };
@@ -100,14 +83,21 @@ export function getBreadcrumbSchema(
   items: { name: string; url: string }[],
   siteUrl = 'https://gamelette.com'
 ) {
+  const base = siteUrl.replace(/\/$/, '');
   return {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
-    itemListElement: items.map((item, index) => ({
-      '@type': 'ListItem',
-      position: index + 1,
-      name: item.name,
-      item: item.url.startsWith('http') ? item.url : `${siteUrl}${item.url}`,
-    })),
+    itemListElement: items.map((item, index) => {
+      let fullUrl = item.url.startsWith('http') ? item.url : `${base}${item.url}`;
+      if (!fullUrl.endsWith('/') && !fullUrl.includes('#') && !fullUrl.includes('?')) {
+        fullUrl += '/';
+      }
+      return {
+        '@type': 'ListItem',
+        position: index + 1,
+        name: item.name,
+        item: fullUrl,
+      };
+    }),
   };
 }
