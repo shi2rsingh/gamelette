@@ -15,8 +15,8 @@ const privacyPageSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebPage',
   '@id': `${siteUrl}/privacy/#webpage`,
-  url: `${siteUrl}/privacy/`,
-  name: 'Privacy Policy (Placeholder) — Gamelette',
+  url: `${siteUrl}/privacy`,
+  name: 'Privacy Policy — Gamelette',
   description: 'Privacy policy information for Gamelette and its browser games collection.',
   isPartOf: {
     '@id': `${siteUrl}/#website`,
@@ -27,7 +27,7 @@ const jsonLd = [breadcrumbSchema, privacyPageSchema];
 ---
 
 <Layout
-  title="Privacy Policy (Placeholder) — Gamelette"
+  title="Privacy Policy — Gamelette"
   description="Privacy policy information for Gamelette and its browser games collection."
   jsonLd={jsonLd}
 >
@@ -46,20 +46,17 @@ const jsonLd = [breadcrumbSchema, privacyPageSchema];
 
       <!-- Badge -->
       <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-amber-100 text-amber-900 mb-4">
-        <span>📋 Template Notice</span>
+        <span>📋 Data &amp; Privacy</span>
       </div>
 
       <h1 class="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight mb-4">
         Privacy Policy
       </h1>
       <p class="text-sm text-slate-500 mb-8">
-        Last updated: October 2026 • Status: Placeholder / Template
+        Last updated: October 2026
       </p>
 
       <div class="prose prose-slate max-w-none space-y-6 text-slate-700 leading-relaxed">
-        <div class="p-4 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-sm">
-          <strong>Note for site administrators:</strong> This is a clear placeholder privacy document. Adjust these clauses to match your real analytics, hosting providers, or cookie usage when ready.
-        </div>
 
         <section class="space-y-3">
           <h2 class="text-xl font-bold text-slate-900">1. Overview</h2>

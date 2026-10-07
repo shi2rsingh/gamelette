@@ -11,8 +11,7 @@ export interface Game {
   previewAlt: string;
   tags: string[];
   features: string[];
-  badgeColor: string;
-  themeGlow: string;
+
 }
 
 export const games: Game[] = [
@@ -35,8 +34,6 @@ export const games: Game[] = [
       'Expressive character mood animations and sound effects',
       'Runs instantly on mobile phones, tablets, and desktop browsers',
     ],
-    badgeColor: 'badge-secondary',
-    themeGlow: 'from-amber-400/20 via-orange-400/10 to-transparent',
   },
   {
     id: 'mancala',
@@ -57,7 +54,5 @@ export const games: Game[] = [
       'Clean wooden board aesthetics with smooth stone movements',
       'Instant loading via web standards with zero install needed',
     ],
-    badgeColor: 'badge-accent',
-    themeGlow: 'from-amber-600/20 via-yellow-500/10 to-transparent',
   },
 ];

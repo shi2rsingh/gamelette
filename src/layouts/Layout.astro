@@ -14,7 +14,7 @@ interface Props {
 const {
   title = 'Gamelette — Free Browser Games | Moody Man & Mancala',
   description = 'Play free, instant browser games at Gamelette. Featuring Moody Man (hangman word guessing) and Mancala (classic board game) with zero downloads or sign-ups.',
-  ogImage = '/og-image.svg',
+  ogImage = '/og-image.png',
   keywords = 'browser games, free web games, online games, moody man, mancala, word guessing, hangman, board games, bantumi, casual games, instant play, no download games',
   jsonLd,
 } = Astro.props;
@@ -59,7 +59,7 @@ const absoluteOgImage = new URL(ogImage, siteUrl).toString();
     <meta property="og:image" content={absoluteOgImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:type" content="image/svg+xml" />
+    <meta property="og:image:type" content={absoluteOgImage.endsWith('.png') ? 'image/png' : absoluteOgImage.endsWith('.jpg') ? 'image/jpeg' : 'image/svg+xml'} />
     <meta property="og:locale" content="en_US" />
 
     <!-- Twitter Card -->
