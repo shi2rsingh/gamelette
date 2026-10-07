@@ -126,6 +126,8 @@ const jsonLd = [breadcrumbSchema, contactPageSchema];
               name="name"
               placeholder={t.contactPage.placeholderName}
               class="w-full px-4 py-2.5 rounded-xl border border-slate-300 bg-white focus:outline-none focus:ring-2 focus:ring-amber-400 text-sm"
+              minlength="2"
+              maxlength="100"
               required
             />
           </div>
@@ -155,6 +157,8 @@ const jsonLd = [breadcrumbSchema, contactPageSchema];
               name="email"
               placeholder={t.contactPage.placeholderEmail}
               class="w-full px-4 py-2.5 rounded-xl border border-slate-300 bg-white focus:outline-none focus:ring-2 focus:ring-amber-400 text-sm"
+              pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}"
+              title="Please provide a valid email address with a domain (e.g., user@example.com)"
               required
             />
           </div>
@@ -169,6 +173,8 @@ const jsonLd = [breadcrumbSchema, contactPageSchema];
               rows="4"
               placeholder={t.contactPage.placeholderMessage}
               class="w-full px-4 py-2.5 rounded-xl border border-slate-300 bg-white focus:outline-none focus:ring-2 focus:ring-amber-400 text-sm"
+              minlength="10"
+              maxlength="3000"
               required
             ></textarea>
           </div>
